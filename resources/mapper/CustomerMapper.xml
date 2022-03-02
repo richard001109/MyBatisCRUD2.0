@@ -46,7 +46,7 @@
 
     <update id="updateCustomer" parameterType="Customer">
         update tb_customer
-        <set>
+        <set><!--确保传入的更新字段不能都为空-->
             <if test="username !=null and username !='' ">
                 username = #{username},
             </if>
