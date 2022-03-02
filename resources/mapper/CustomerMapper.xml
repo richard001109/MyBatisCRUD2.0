@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasofti.dao.CustomerDao">
+    <!--通过ID查询客户信息-->
+    <select id="findCustomer" parameterType="Customer" resultType="Customer">
+        select * from tb_customer
+        <where>
+            <if test="jobs != null and jobs != ''">
+               jobs=#{jobs}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone=#{phone}
+            </if>
+        </where>
+    </select>
+
+    <select id="findCustomerByWhen" parameterType="String" resultType="Customer">
+        select * from tb_customer where 1=1
+        <choose>
+            <when test="username !=null and username != ''">
+                and username = #{username}
+            </when>
+            <when test="jobs !=null and jobs != ''">
+                and jobs = #{jobs}
+            </when>
+            <otherwise>
+                and phone is not null
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--使用trim元素，实现数据sql的拼接-->
+    <select id="findCustomerTwo" parameterType="Customer" resultType="Customer">
+        select * from tb_customer
+        <trim prefix="where" prefixOverrides="and">
+        <if test="jobs != null and jobs != ''">
+           and  jobs=#{jobs}
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone=#{phone}
+        </if>
+        </trim>
+    </select>
+
+    <update id="updateCustomer" parameterType="Customer">
+        update tb_customer
+        <set>
+            <if test="username !=null and username !='' ">
+                username = #{username},
+            </if>
+            <if test="jobs !=null and jobs !='' ">
+                jobs = #{jobs},
+            </if>
+            <if test="phone !=null and phone !='' ">
+                phone = #{phone},
+            </if>
+        </set>
+        where id =#{id}
+    </update>
+</mapper>
