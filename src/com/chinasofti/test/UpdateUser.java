@@ -23,7 +23,7 @@ public class UpdateUser {
         users.setId(8);
         users.setName("刘翔");
         users.setSex("b");
-        users.setAge(38);
+        users.setAge(28);
         users.setAddress("上海");
         UserDao userDao = session.getMapper(UserDao.class);
         int i = userDao.updateUser(users);
