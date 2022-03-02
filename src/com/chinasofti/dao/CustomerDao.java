@@ -13,4 +13,5 @@ public interface CustomerDao {
     public  List<Customer> findCustomerTwo(Customer customer);
     //修改数据
     public  int updateCustomer(Customer customer);
+    public  int updateCustomer1(Customer customer);
 }

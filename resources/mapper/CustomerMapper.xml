@@ -59,4 +59,20 @@
         </set>
         where id =#{id}
     </update>
+
+    <update id="updateCustomer1" parameterType="Customer">
+        update tb_customer
+        <trim prefix="set" suffixOverrides=","><!--确保传入的更新字段不能都为空-->
+            <if test="username !=null and username !='' ">
+                username = #{username},
+            </if>
+            <if test="jobs !=null and jobs !='' ">
+                jobs = #{jobs},
+            </if>
+            <if test="phone !=null and phone !='' ">
+                phone = #{phone},
+            </if>
+        </trim>
+        where id =#{id}
+    </update>
 </mapper>
